@@ -1,7 +1,8 @@
 from flask import Flask, render_template
 from dash import Dash, html, dcc
-from figures import line_chart, bar_chart
-
+from figures import line_chart, bar_chart, scatter_plot, box_plot, histogram, pie_chart
+import pandas as pd
+df = pd.read_csv("HISTORICO-MLG-2023.csv")
 # Initialize Flask server:
 server = Flask(__name__, template_folder = "templates")
 
@@ -19,10 +20,19 @@ app1.layout = html.Div([
     html.H1("Sample Dash App"),
     html.P("This is a simple Dash app running on a Flask server."),
     html.H2("Sample Line Chart"),
-    dcc.Graph(figure=line_chart()),
+    dcc.Graph(figure=line_chart(df)),
     html.H2("Sample Bar Chart"),
-    dcc.Graph(figure=bar_chart())
+    dcc.Graph(figure=bar_chart(df)),
+    html.H2("Sample Scatter Plot"),
+    dcc.Graph(figure=scatter_plot(df)),
+    html.H2("Sample Box Plot"),
+    dcc.Graph(figure=box_plot(df)),
+    html.H2("Sample Histogram"),
+    dcc.Graph(figure=histogram(df)),
+    html.H2("Sample Pie Chart"),
+    dcc.Graph(figure=pie_chart(df))
 ])
+
 
 # Run the App:
 if __name__ == "__main__":
